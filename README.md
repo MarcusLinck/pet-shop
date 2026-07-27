@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pet Shop Scheduler
 
-## Getting Started
+Aplicação de agenda para pet shop construída com **Next.js 15**, **React 19**, **TypeScript** e **PostgreSQL**.
 
-First, run the development server:
+## Descrição
+
+Este projeto permite gerenciar agendamentos de atendimentos para um pet shop. A aplicação exibe os agendamentos do dia selecionado, organiza horários por períodos e fornece um formulário para criar novos compromissos.
+
+## Estrutura principal
+
+- `src/app` - páginas e layout da aplicação Next.js.
+- `src/components` - componentes de interface como formulário de agendamento, seletor de data e seções de período.
+- `src/lib/prisma.ts` - cliente Prisma configurado com `@prisma/adapter-pg`.
+- `prisma/schema.prisma` - modelo de dados para `Appointment`.
+- `docker-compose.yml` - serviço PostgreSQL local para desenvolvimento.
+
+## Tecnologias
+
+- Next.js 15
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Prisma ORM 6
+- PostgreSQL
+- Radix UI
+- React Hook Form
+- Zod
+- date-fns
+
+## Banco de dados
+
+A aplicação usa PostgreSQL com Prisma. O modelo principal é `Appointment`:
+
+- `id` - identificador único
+- `tutorName` - nome do tutor
+- `petName` - nome do pet
+- `phone` - telefone de contato
+- `description` - descrição do atendimento
+- `scheduleAt` - data e hora do agendamento
+
+## Executando localmente
+
+1. Instale dependências:
+
+```bash
+npm install
+```
+
+2. Inicie o banco de dados PostgreSQL com Docker:
+
+```bash
+docker compose up -d
+```
+
+3. Configure a variável de ambiente `DATABASE_URL` em `.env` ou use `.env.example` como referência:
+
+```env
+DATABASE_URL="postgresql://docker:docker@localhost:5432/petshop"
+```
+
+4. Gere o cliente Prisma (se necessário):
+
+```bash
+npx prisma generate
+```
+
+5. Execute a aplicação:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+6. Acesse em:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+- `npm run dev` - executa o servidor de desenvolvimento.
+- `npm run build` - cria a build de produção.
+- `npm run start` - inicia o servidor de produção.
+- `npm run lint` - executa o ESLint.
+- `npm run format` - formata o código com Prettier.
+- `npm run validate:typecheck` - valida tipos com TypeScript.
 
-To learn more about Next.js, take a look at the following resources:
+## Notas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- O banco de dados é persistido no volume `./pgdata` definido em `docker-compose.yml`.
+- O serviço PostgreSQL expõe a porta `5432`.
+- O cliente Prisma é inicializado em `src/lib/prisma.ts` usando `DATABASE_URL`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Contato
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Este repositório é um projeto de estudo do curso da Rocketseat e serve como um exemplo de agenda com Next.js, Prisma e PostgreSQL.
